@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Wedding Invitation - Ahamed Kabir & Mariyam Muzaina | Muhammed Midhlaj Hassan & Mariyath Ruksana</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <!-- Preload critical assets for faster loading -->
+    <link rel="preload" as="image" href="./base_bg_img.png">
+    <link rel="preload" as="image" href="./ezgif-frame-001.png">
+    <link rel="preload" as="image" href="hall.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <style>
+        /* ==============================
+           Wedding Invitation Theme
+           ============================== */
+
+        :root{
+            --gold: #b8860b;
+            --gold-light: #d4a84b;
+            --cream: #ffffff;
+            --brown: #A40D07;
+            --dark: #6E0704;
+            --white: #ffffff;
+            --font-title: 'Playfair Display', serif;
+            --font-body: 'Cormorant Garamond', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--brown);
+            line-height: 1.7;
+            overflow: hidden;
+        }
+        
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ==============================
+           PRELOADER STYLES
+           ============================== */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fff8f0 0%, #fff0e0 100%);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        }
+        
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-container {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .ring-loader {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+        }
+        
+        .ring-loader svg {
+            width: 100%;
+            height: 100%;
+            animation: rotate 2s linear infinite;
+            transform-origin: center;
+        }
+        
+        .ring-loader circle {
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 3;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: dash 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes dash {
+            0% { stroke-dashoffset: 200; }
+            50% { stroke-dashoffset: 50; }
+            100% { stroke-dashoffset: 200; }
+        }
+        
+        .loader-text {
+            font-family: var(--font-title);
+            font-size: 20px;
+            color: var(--gold);
+            letter-spacing: 3px;
+            margin-top: 20px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        .loader-progress {
+            width: 200px;
+            height: 2px;
+            background: rgba(184, 134, 11, 0.2);
+            border-radius: 2px;
+            margin: 20px auto 0;
+            overflow: hidden;
+        }
+        
+        .loader-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--gold);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .loader-percent {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--gold);
+            margin-top: 10px;
+        }
+        
+        .bismillah {
+            font-family: 'Great Vibes', cursive;
+            font-size: 28px;
+            color: var(--gold);
+            margin-top: 20px;
+            opacity: 0.7;
+        }
+
+        /* hero section */
+        #curtain-hero {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease;
+        }
+        
+        #curtain-hero.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        #hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            color: #d4af37;
+            font-size: 32px;
+            z-index: 2;
+            opacity: 0;
+            transition: all 1s ease;
+            font-family: var(--font-title);
+            white-space: nowrap;
+        }
+
+        #curtain-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 3;
+        }
+
+        #openBtn {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            padding: 12px 30px;
+            font-size: 18px;
+            background: #b8860b;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            font-family: var(--font-body);
+            font-weight: 600;
+        }
+        
+        #openBtn:hover {
+            background: #d4a84b;
+            transform: translateX(-50%) scale(1.02);
+        }
+
+        /* Main Content - initially hidden */
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        
+        .main-content.visible {
+            opacity: 1;
+        }
+
+        /* General Layout */
+        section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        /* Typography */
+        .title {
+            font-family: var(--font-title);
+            font-size: 48px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 19px;
+            color: #A40D07;
+            margin-bottom: 20px;
+        }
+
+        .names {
+            font-family: var(--font-title);
+            font-size: 64px;
+            margin: 20px 0;
+            letter-spacing: 2px;
+            color: #6E0704;
+        }
+        
+        .names a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Divider */
+        .and-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .divider {
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(to right, #f3e4ccf6, #e4b686, #f3e4ccf6);
+            margin: 25px auto;
+        }
+
+        .and_divider {
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(to right, #f3e4ccf6, #e4b686, #f3e4ccf6);
+            margin: 10px;
+        }
+
+        .couples-wrapper {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 30px auto 0;
+            max-width: 1080px;
+        }
+
+        .couple-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(184, 134, 11, 0.25);
+            border-radius: 18px;
+            padding: 28px 22px;
+            flex: 1 1 360px;
+            max-width: 500px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            position: relative;
+            backdrop-filter: blur(6px);
+        }
+
+        .couple-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 42px rgba(184, 134, 11, 0.16);
+            border-color: rgba(184, 134, 11, 0.7);
+        }
+        
+        .couple-card-title {
+            font-family: var(--font-title);
+            font-size: 22px;
+            color: var(--gold);
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .couple-card .names {
+            font-size: 34px;
+            margin: 12px 0;
+            color: var(--dark);
+        }
+
+        /* Countdown */
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .countdown div {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .countdown span {
+            font-size: 42px;
+            color: var(--gold);
+            font-family: var(--font-title);
+            display: block;
+        }
+
+        .countdown p {
+            font-size: 16px;
+            color: #6b5344;
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 70px 20px;
+            text-align: center;
+        }
+
+        footer h2 {
+            font-family: var(--font-title);
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            opacity: 0.9;
+            margin: 5px 0;
+        }
+
+        /* Fade Animation */
+        .fade {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s;
+        }
+
+        .fade.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Map */
+        .map-container {
+            margin-top: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+        }
+
+        /* Venue Section */
+        .venue-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .venue-subtitle {
+            font-size: 23px;
+            color: #7a5c3e;
+            margin-bottom: 20px;
+        }
+
+        .venue-image {
+            width: 100%;
+            max-width: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .venue-name {
+            font-family: var(--font-title);
+            font-size: 28px;
+            color: #b8860b;
+        }
+
+        .venue-location {
+            font-size: 18px;
+            color: #5e4636;
+            margin-top: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .names { font-size: 48px; }
+            .title { font-size: 36px; }
+        }
+
+        @media (max-width: 768px) {
+            .countdown { grid-template-columns: repeat(2, 1fr); }
+            .names { font-size: 38px; }
+            section { padding: 60px 15px; }
+            #hero-text { font-size: 24px; white-space: normal; width: 80%; text-align: center; }
+        }
+
+        /* Dual Couples Layout */
+        .couples-wrapper {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin: 40px auto;
+            max-width: 1000px;
+        }
+
+        .couple-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(184, 134, 11, 0.3);
+            border-radius: 15px;
+            padding: 35px 25px;
+            flex: 1 1 450px;
+            max-width: 480px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        .couple-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(184, 134, 11, 0.15);
+            border-color: rgba(184, 134, 11, 0.8);
+        }
+        
+        .couple-card-title {
+            font-family: var(--font-title);
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .couple-card .names {
+            font-size: 38px;
+            margin: 15px 0;
+            color: var(--dark);
+        }
+    </style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+    <div class="loader-container">
+        <div class="ring-loader">
+            <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" />
+            </svg>
+        </div>
+        <div class="loader-text">LOADING INVITATION</div>
+        <div class="loader-progress">
+            <div class="loader-progress-bar" id="progressBar"></div>
+        </div>
+        <div class="loader-percent" id="percentText">0%</div>
+        <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    </div>
+</div>
+
+<!-- CURTAIN HERO -->
+<div id="curtain-hero">
+    <img id="hero-bg" src="./base_bg_img.png" alt="Background" />
+    <h1 id="hero-text">Assalam Alaikum</h1>
+    <img id="curtain-img" src="./ezgif-frame-001.png" alt="Curtain" />
+    <button id="openBtn">Open Invitation</button>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content" id="mainContent">
+    <section class="fade">
+        <div class="container">
+            <p style="color: #bb772e; font-size: 25px; font-weight: 600;">IN THE NAME OF ALLAH</p>
+            <p class="subtitle" style="font-size: 19px; font-weight: 500;">The Most Gracious, The Most Merciful</p>
+            <div class="divider"></div>
+            <p class="subtitle"><b style="font-size: 18px;">Mr. HUSSAIN & Mrs. FATHIMA</b><br>Rifath Manzil, Near Jalaliya Masjid, GHSS Road Kunjathur, Manjeshwar</p>
+            <h3 style="color: #333; font-size: 20px; font-weight: 500; line-height: 1.6; margin-top: 20px;">
+                <b>With the blessings of the Almighty, we cordially invite you and your family to join us in celebrating the joyous occasion of our wedding. Your presence, love, and prayers will make this special day even more memorable..</b>
+            </h3>
+            
+            <div class="couples-wrapper">
+                <div class="couple-card">
+                    <div class="couple-card-title">Wedding of Our Son</div>
+                    <h1 class="names" style="font-size: 36px; color: var(--dark); font-weight: 700;">Ahamed Kabir</h1>
+                    <p style="font-size: 16px; color: #777; font-style: italic; margin-top: -10px; margin-bottom: 10px;">Grand S/o. Marhoom Abdulla & Marhoom Arabi</p>
+                    <div class="and-divider">
+                        <div class="and_divider" style="width: 50px;"></div>
+                        <h2 style="font-family:'Great Vibes', cursive; font-weight: normal; font-size: 32px; color: var(--gold); margin: 0 10px;">with</h2>
+                        <div class="and_divider" style="width: 50px;"></div>
+                    </div>
+                    <h1 class="names" style="font-size: 36px; color: var(--dark); font-weight: 700; margin-top: 10px;">Mariyam Muzaina</h1>
+                    <p style="font-size: 16px; color: #777; font-style: italic; margin-top: -10px;">D/o. Mohammed M.K<br>Grand D/o. Marhoom Abu Haji Kanwatheertha</p>
+                </div>
+                <div class="couple-card">
+                    <div class="couple-card-title">Wedding of Our Daughter</div>
+                    <h1 class="names" style="font-size: 36px; color: var(--dark); font-weight: 700;">Mariyath Ruksana</h1>
+                    <p style="font-size: 16px; color: #777; font-style: italic; margin-top: -10px; margin-bottom: 10px;">Grand D/o. Marhoom Abdulla & Marhoom Arabi</p>
+                    <div class="and-divider">
+                        <div class="and_divider" style="width: 50px;"></div>
+                        <h2 style="font-family:'Great Vibes', cursive; font-weight: normal; font-size: 32px; color: var(--gold); margin: 0 10px;">with</h2>
+                        <div class="and_divider" style="width: 50px;"></div>
+                    </div>
+                    <h1 class="names" style="font-size: 36px; color: var(--dark); font-weight: 700; margin-top: 10px;">Muhammed Midhlaj Hassan</h1>
+                    <p style="font-size: 16px; color: #777; font-style: italic; margin-top: -10px;">S/o. Muneer Bagavi Thuruthi<br>Grand S/o. Marhoom Thuruthi Hassan Kutty</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="fade">
+        <div class="container">
+            <div id="venue-section">
+                <div class="venue-container">
+                    <p class="venue-subtitle">The celebration will take place at</p>
+                    <div>
+                        <img src="hall.png" alt="AH Palace Venue" class="venue-image" loading="lazy">
+                        <h2 class="venue-name">@ AH Palace</h2>
+                        <p class="venue-location">Morathana, Hosangadi-Anekal Road, Manjeshwar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="fade">
+        <div class="container">
+            <h2 class="title" style="font-family: 'Great Vibes', cursive; font-weight: 100;">Venue Location</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps?q=8+AH+Palace+Morathana&output=embed" allowfullscreen loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="fade">
+        <div class="container">
+            <h2 class="title" style="font-family: 'Great Vibes', cursive; font-weight: 100;">Countdown</h2>
+            <div class="countdown">
+                <div><span id="days">0</span><p>Days</p></div>
+                <div><span id="hours">0</span><p>Hours</p></div>
+                <div><span id="minutes">0</span><p>Minutes</p></div>
+                <div><span id="seconds">0</span><p>Seconds</p></div>
+            </div>
+            <br><p style="font-size: 25px;">Until the big day</p>
+        </div>
+    </section>
+
+    <footer class="fade">
+        <h2>Ahamed Kabir & Mariyam Muzaina<br>&<br>Muhammed Midhlaj Hassan & Mariyath Ruksana</h2>
+        <p><i class="bi bi-calendar-heart"></i> Sunday, 28th June 2026</p>
+        <p style="margin-top: 20px;">With Best Compliments From:<br><b style="font-size: 18px;">Mr. HUSSAIN & Mrs. FATHIMA & Family</b></p>
+        <p style="margin-top: 20px;"><i class="bi bi-telephone-fill"></i> <a href="tel:6362910806" style="color: inherit; text-decoration: none;">+91 6362910806</a></p>
+    </footer>
+</div>
+
+<script>
+
+    let fullFrameCache = {};
+// ==================== ASSET LOADER WITH PROGRESS ====================
+(function() {
+    // List of all critical images to load
+    const criticalImages = [
+        './base_bg_img.png',
+        './ezgif-frame-001.png',
+        'hall.png'
+    ];
+
+    // Only preload the key hero images first to speed up page load.
+    const allAssets = [...criticalImages];
+    let loadedCount = 0;
+    const totalAssets = allAssets.length;
+    const progressBar = document.getElementById('progressBar');
+    const percentText = document.getElementById('percentText');
+    const preloader = document.getElementById('preloader');
+    const curtainHero = document.getElementById('curtain-hero');
+    const mainContent = document.getElementById('mainContent');
+    
+    
+let fakeProgress = 0;
+
+function updateProgress() {
+    // REAL progress (background)
+    const realPercent = Math.floor((loadedCount / totalAssets) * 100);
+
+    // FAKE smooth jumps
+    if (fakeProgress < 30) {
+        fakeProgress += 2;
+    } else if (fakeProgress < 60) {
+        fakeProgress += 1;
+    } else if (fakeProgress < 85) {
+        fakeProgress += 0.5;
+    } else if (realPercent >= 100) {
+        fakeProgress = 100;
+    }
+
+    if (progressBar) {
+        progressBar.style.width = fakeProgress + '%';
+    }
+
+    if (percentText) {
+        percentText.textContent = Math.floor(fakeProgress) + '%';
+    }
+
+    // FINAL LOAD COMPLETE
+    if (realPercent === 100 && fakeProgress >= 99) {
+        setTimeout(() => {
+            preloader.classList.add('fade-out');
+
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                curtainHero.classList.add('visible');
+                mainContent.classList.add('visible');
+                document.body.style.overflow = 'hidden';
+            }, 800);
+        }, 300);
+    }
+}
+    
+
+
+
+    
+function loadImage(url) {
+    return new Promise((resolve) => {
+        const img = new Image();
+
+        img.onload = () => {
+            loadedCount++;
+            updateProgress();
+
+            // ✅ STORE IMAGE
+            fullFrameCache[url] = img;
+
+            resolve();
+        };
+
+        img.onerror = () => {
+            loadedCount++;
+            updateProgress();
+            resolve();
+        };
+
+        img.src = url;
+    });
+}
+
+    
+    // Load all assets
+    async function loadAllAssets() {
+        const loadPromises = allAssets.map(url => loadImage(url));
+        await Promise.all(loadPromises);
+    }
+    
+    // Start loading
+    loadAllAssets();
+})();
+
+// ==================== CURTAIN ANIMATION ====================
+const btn = document.getElementById("openBtn");
+const curtainImg = document.getElementById("curtain-img");
+
+let currentFrame = 1;
+const totalFrames = 211;
+let frameCache = {};
+
+function getFrameUrl(frameNum) {
+    return `./ezgif-frame-${String(frameNum).padStart(3, '0')}.png`;
+}
+
+// Preload critical frames for smooth animation
+function preloadCriticalFrames() {
+    const criticalFrames = [1, 5, 10, 20, 30, 40, 50, 60, 80, 100, 120, 140, 160, 180, 200, 211];
+    criticalFrames.forEach(f => {
+        const img = new Image();
+        img.src = getFrameUrl(f);
+        frameCache[f] = img;
+    });
+}
+preloadCriticalFrames();
+
+btn.addEventListener("click", () => {
+    btn.style.display = "none";
+    
+    let textShown = false;
+    const frameDelay = 35;
+    let lastFrameTime = 0;
+    
+    function animateCurtain(timestamp) {
+        if (!lastFrameTime) {
+            lastFrameTime = timestamp;
+        }
+        
+        const elapsed = timestamp - lastFrameTime;
+        
+        if (elapsed >= frameDelay) {
+            currentFrame += 2;
+            if (currentFrame > totalFrames) {
+                currentFrame = totalFrames;
+            }
+            
+            if (currentFrame > 30 && !textShown) {
+                document.getElementById("hero-text").classList.add("show");
+                textShown = true;
+            }
+            
+            const frameUrl = getFrameUrl(currentFrame);
+            const cached = fullFrameCache[frameUrl];
+
+            if (cached) {
+                curtainImg.src = cached.src;
+            } else {
+                curtainImg.src = frameUrl;
+            }
+            
+            // Preload next frames in background
+            const nextFrame = currentFrame + 4;
+            if (nextFrame <= totalFrames && !frameCache[nextFrame]) {
+                const preloadImg = new Image();
+                preloadImg.src = getFrameUrl(nextFrame);
+                frameCache[nextFrame] = preloadImg;
+            }
+            
+            lastFrameTime = timestamp;
+        }
+        
+        if (currentFrame < totalFrames) {
+            requestAnimationFrame(animateCurtain);
+        } else {
+            // Animation complete
+            curtainImg.src = getFrameUrl(totalFrames);
+            const hero = document.getElementById("curtain-hero");
+            hero.style.position = "relative";
+            document.body.style.overflow = "auto";
+
+            // ✅ JUST REDIRECT (SCROLL DOWN)
+setTimeout(() => {
+    window.scrollTo({
+        top: window.innerHeight,
+        behavior: "smooth"
+    });
+}, 600);
+
+            
+            // Trigger fade animations after curtain opens
+            setTimeout(() => {
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if(entry.isIntersecting){
+                            entry.target.classList.add("show");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+                document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+            }, 100);
+        }
+    }
+    
+    requestAnimationFrame(animateCurtain);
+});
+
+// ==================== COUNTDOWN TIMER ====================
+const weddingDate = new Date("June 28, 2026 11:00:00").getTime();
+setInterval(function(){
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
+    if (distance < 0) {
+        document.getElementById("days").innerHTML = "0";
+        document.getElementById("hours").innerHTML = "0";
+        document.getElementById("minutes").innerHTML = "0";
+        document.getElementById("seconds").innerHTML = "0";
+        return;
+    }
+    document.getElementById("days").innerHTML = Math.floor(distance / (1000*60*60*24));
+    document.getElementById("hours").innerHTML = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+    document.getElementById("minutes").innerHTML = Math.floor((distance % (1000*60*60)) / (1000*60));
+    document.getElementById("seconds").innerHTML = Math.floor((distance % (1000*60)) / 1000);
+}, 1000);
+
+// ==================== CONFETTI LAZY LOAD ====================
+function loadConfettiAndCelebrate() {
+    if(typeof confetti === 'undefined') {
+        const script = document.createElement('script');
+        script.src = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js";
+        script.onload = () => celebrate();
+        document.head.appendChild(script);
+    } else {
+        celebrate();
+    }
+}
+
+function celebrate(){
+    const goldColors = ['#D4AF37', '#FFD700', '#C9A227', '#E6BE8A'];
+    confetti({ particleCount: 80, spread: 70, startVelocity: 20, gravity: 0.6, scalar: 0.9, colors: goldColors });
+    
+    let duration = 500;
+    let end = Date.now() + duration;
+    (function frame(){
+        confetti({ particleCount: 4, angle: 60, spread: 60, startVelocity: 15, gravity: 0.5, origin: { x: 0 }, colors: goldColors });
+        confetti({ particleCount: 4, angle: 120, spread: 60, startVelocity: 15, gravity: 0.5, origin: { x: 1 }, colors: goldColors });
+        if(Date.now() < end) requestAnimationFrame(frame);
+    })();
+}
+
+
+</script>
+</body>
+</html>
